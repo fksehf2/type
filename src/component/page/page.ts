@@ -20,7 +20,7 @@ interface SectionContainer extends Component, Composable, Draggable, Hoverable {
   setOnCloseListener(listener: OnCloseListener): void;
   setOndragStateListener(listener: onDragStateListener<SectionContainer>): void;
   muteChildren(state: "mute" | "unmute"): void;
-  getBoundingRect(): DOMRect;
+  getBoundingRect(): DOMRect; //좌표 얻어오는 함수
   onDropped(): void;
 }
 
