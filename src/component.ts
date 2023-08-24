@@ -2,6 +2,10 @@ export interface Component {
   attachTo(parent: HTMLElement, position?: InsertPosition): void;
   removeFrom(parent: HTMLElement): void;
   attach(component: Component, postion?: InsertPosition): void;
+  registerEventListener<K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
+  ): void;
 }
 
 /**
@@ -30,5 +34,13 @@ export class BaseComponent<T extends HTMLElement> implements Component {
 
   attach(component: Component, postion?: InsertPosition) {
     component.attachTo(this.element, postion);
+  }
+
+  // The same signature as the HTMLElement.addEventListener method
+  registerEventListener<K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
+  ): void {
+    this.element.addEventListener(type, listener);
   }
 }
